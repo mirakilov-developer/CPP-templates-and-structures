@@ -21,9 +21,10 @@ const ll INFLL = 4e18;
 const double EPS = 1e-9;
 const int SIZE = 1000*1007;
 
-// MO'S ALGORITHM TO PROCCESS OFFLINE QUERIES IN O((n+m)*sqrt(n))
+// MO'S ALGORITHM (array only). Version 1.0 
+// PROCESS OFFLINE QUERIES IN O((n+m)*sqrt(n))
 // DQUERY VERSION (count distinct numbers in range)
-// TOUCH NOTHING, ONLY ###### (and int,ll and etc.)
+// Change only Range_Handler (and int,ll and etc.)
 // **NOTE WORK WITH [l,r)
 struct MO{
     
@@ -31,9 +32,6 @@ struct MO{
         int l,r,id;
     };
     
-    // ######
-    // CHANGE EVERY THING
-    // ######
     struct Range_Handler{ // the structure to handle queries on range
         vector<int> a;
         
