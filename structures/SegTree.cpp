@@ -128,7 +128,7 @@ struct SegTree{
         tree[i].merge(tree[i<<1],tree[i<<1|1],r-l);
     }
     
-    // point_ask, driver
+    // point_update, driver
     void point_update(int q, ll v){
         point_update(1,0,N,q,v);
     }
