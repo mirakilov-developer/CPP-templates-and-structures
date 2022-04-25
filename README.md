@@ -1,2 +1,2 @@
 # CP-templates-and-structures
-Here I storage my CP templates
+Here I store my CP templates
