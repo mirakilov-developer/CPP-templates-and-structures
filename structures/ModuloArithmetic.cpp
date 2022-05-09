@@ -2,7 +2,7 @@
 
 using namespace std;
 
-const int MOD = 1e9+5;
+const int MOD = 1e9+7;
 // Arithmetic by MODULO
 // ver 0.2.0
 struct Mint{
