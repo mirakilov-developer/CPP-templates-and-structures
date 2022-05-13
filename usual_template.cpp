@@ -25,11 +25,14 @@ void solve(int NT){
     
 }
 
+void setIn(string s) {freopen(s.c_str(), "r", stdin);}
+void setOut(string s) {freopen(s.c_str(), "w", stdout);}]
 
 #define TESTCASES
 int main() {
-    cin.tie(0)->sync_with_stdio(0);
-    
+    ios::sync_with_stdio(0);
+    cin.tie(0);
+
     int t = 1;
     #ifdef TESTCASES
         cin >> t;
