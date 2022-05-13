@@ -30,8 +30,7 @@ void setOut(string s) {freopen(s.c_str(), "w", stdout);}
 
 #define TESTCASES
 int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
+    cin.tie(0)->sync_with_stdio(0);
 
     int t = 1;
     #ifdef TESTCASES
