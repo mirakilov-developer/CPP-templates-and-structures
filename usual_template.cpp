@@ -1,8 +1,8 @@
-// MDSPro
+// Pathetic
 
 #include <bits/stdc++.h>
 
-#define trav(i,n) for(int i = 0; i < (n); i++)
+#define trav(i,n) for(int i = 0; i < (n); ++i)
 #define pb push_back
 #define se second
 #define fi first
@@ -28,9 +28,8 @@ void solve(int NT){
 
 #define TESTCASES
 int main() {
-    ios::sync_with_stdio(0);
-    cin.tie(0);
-
+    cin.tie(0)->sync_with_stdio(0);
+    
     int t = 1;
     #ifdef TESTCASES
         cin >> t;
