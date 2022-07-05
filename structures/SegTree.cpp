@@ -29,6 +29,10 @@ const int SIZE = 1000*1007;
 //      Constructor (if need)
 //      Add extra interface functions (if need)
 
+// NOTE: indexation of tree nodes from 1
+//       indexation of range (array elements) from 0
+//       work with semi-interval, a.k.a [l,r)
+
 // Type of queries:
 // save - max; propogate - apply; find - smaller or equal;
 struct SegTree{
