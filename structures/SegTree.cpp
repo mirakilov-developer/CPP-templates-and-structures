@@ -23,27 +23,27 @@ const int SIZE = 1000*1007;
 
 
 // Segment Tree structure.
-// Top to bottom. Version 2.0.0
+// Top to bottom. Version 2.5.0
 // change:
 //      Node structure 
 //      Constructor (if need)
 //      Add extra interface functions (if need)
 
-// save max, propogate addition version
+// Type of queries:
+// save - max; propogate - apply; find - smaller or equal;
 struct SegTree{
     struct Node{
         // node variables.
-        ll mx,add;
+        ll mx,apply;
         
         // neutral element.
         Node(){
-            mx = -INFLL;
-            add = 0;
+            mx = -INFLL, apply = -1;
         }
         
         // gets value from array.
         Node operator=(const ll x){
-            mx = x, add = 0;
+            mx = x, apply = -1;
             return *this;
         }
         
@@ -54,17 +54,17 @@ struct SegTree{
         
         // splits update from mother to sons.
         void split(Node &a, Node &b, int len = 0){
-            if(add){
-                a.impact(add,len>>1);
-                b.impact(add,len>>1);
-                add = 0;
+            if(apply != -1){
+                a.impact(apply,len>>1);
+                b.impact(apply,len>>1);
+                apply = -1;
             }
         }
         
         // updates.
         void impact(ll v, int len = 0){
-            mx += v;
-            add += v;
+            mx = v;
+            apply = v;
         }
     };
     
@@ -83,6 +83,10 @@ struct SegTree{
         for(int i = N-1; i > 0; --i) tree[i].merge(tree[i<<1],tree[i<<1|1]);
     }
     
+    // for there and after
+    // [ql,qr) asking range
+    // i       node number
+    // [l,r)   range of the node
     
     // range_query: calculates everything on range.
     Node range_query(int i, int l, int r, int ql, int qr){
@@ -106,7 +110,7 @@ struct SegTree{
         return ans.mx;
     }
     
-    // range_update: update the range.
+    // range_update: updates the range with parameter v.
     void range_update(int i, int l, int r, int ql, int qr, ll v){
         if(qr <= l || r <= ql) return;
         if(ql <= l && r <= qr) {
@@ -123,24 +127,82 @@ struct SegTree{
 
     // interface for range_update:
     // change name not to confuse.
-    void add(int ql, int qr, ll v){
+    void apply(int ql, int qr, ll v){
         range_update(1,0,N,ql,qr,v);
+    }
+    
+    // find_first:
+    // finds first index of element on range that satisfies "check()" condition
+    // returns n if there is no such element
+    int find_first(int i, int l, int r, int ql, int qr, function<bool(const Node&)> &check){
+        if(qr <= l || r <= ql) return n;
+        if(ql <= l && r <= qr) {
+            if(!check(tree[i])) return n;
+            if(r-l == 1) return l;
+        }
+        
+        tree[i].split(tree[i<<1],tree[i<<1|1],r-l);
+        
+        int mid = (l+r)>>1;
+        int ans = find_first(i<<1,l,mid,ql,qr,check);
+        if(ans == n) ans = find_first(i<<1|1,mid,r,ql,qr,check);
+        
+        return ans;
+    }
+    
+    // find_last:
+    // finds last index of element on range that satisfies "check()" condition
+    // returns -1 if there is no such element
+    int find_last(int i, int l, int r, int ql, int qr, function<bool(const Node&)> &check){
+        if(qr <= l || r <= ql) return -1;
+        if(ql <= l && r <= qr) {
+            if(!check(tree[i])) return -1;
+            if(r-l == 1) return l;
+        }
+        
+        tree[i].split(tree[i<<1],tree[i<<1|1],r-l);
+        
+        int mid = (l+r)>>1;
+        int ans = find_last(i<<1|1,mid,r,ql,qr,check);
+        if(ans == -1) ans = find_last(i<<1,l,mid,ql,qr,check);
+        
+        return ans;
+    }
+    
+    // interface for find_first or find_last:
+    // isFirst  true  if find_first
+    //          false if find_last
+    // change name not to confuse.
+    
+    int find_smaller_or_equal(int ql, int qr, ll x,bool isFirst){
+        
+        function<bool(const Node&)> check = [&x](const Node& nd){
+            return x <= nd.mx;
+        };
+        
+        if(isFirst) return find_first(1,0,N,ql,qr,check);
+        return find_last(1,0,N,ql,qr,check);
     }
 };
 
 // SOLVED
-// https://acmp.ru/asp/do/index.asp?main=task&id_course=2&id_section=20&id_topic=45&id_problem=599 
+// https://atcoder.jp/contests/practice2/tasks/practice2_j
 void solve(int NT){
-    int n,k,m; cin >> n >> k;
-    vector<ll> a(n,0);
+    int n,q; cin >> n >> q;
+    vector<ll> a(n); for(ll &z: a) cin >> z;
+    
     SegTree sg(a);
-    cin >> m;
-    while(m--){
-        int l,r; cin >> l >> r;
-        if(sg.mx(l,r) == k) cout << "No\n";
-        else {
-            cout << "Yes\n";
-            sg.add(l,r,1);    
+    while(q--){
+        int t; cin >> t;
+        if(t == 1){
+            int x; ll v; cin >> x >> v;
+            sg.apply(x-1,x,v);
+        } else if(t == 2){
+            int l,r; cin >> l >> r;
+            cout << sg.mx(l-1,r) << "\n";
+        } else {
+            int x; ll v; cin >> x >> v;
+            cout << sg.find_smaller_or_equal(x-1,n,v,true)+1 << "\n";
         }
     }
 }
