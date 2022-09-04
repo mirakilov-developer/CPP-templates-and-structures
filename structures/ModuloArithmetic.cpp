@@ -1,7 +1,3 @@
-#include <iostream>
-
-using namespace std;
-
 const int MOD = 1e9+7;
 // Arithmetic by MODULO
 // ver 0.6.0
@@ -66,10 +62,3 @@ struct Mint{
 };
 ostream& operator<<(ostream& os, const Mint& y){os << y.x;return os;}
 istream& operator>>(istream& is, Mint& y){is >> y.x;return is;}
-
-int main() {
-    Mint a = 300;
-    cout << a+5;
-    
-    return 0;
-}

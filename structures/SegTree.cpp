@@ -1,27 +1,3 @@
-// MDSPro
-
-#include <bits/stdc++.h>
-
-#define trav(i,n) for(int i = 0; i < (n); i++)
-#define pb push_back
-#define se second
-#define fi first
-#define all(x) (x).begin(),(x).end()
-
-using namespace std;
-using ll = long long;
-using ld = long double;
-using pii = pair<int,int>;
-using vi = vector<int>;
-
-const ld PI = 3.141592653589793;
-const ll MOD = 1e9+7;
-const int INF = 1e9;
-const ll INFLL = 4e18;
-const double EPS = 1e-9;
-const int SIZE = 1000*1007;
-
-
 // Segment Tree structure.
 // Top to bottom. Version 2.5.0
 // change:
@@ -188,40 +164,3 @@ struct SegTree{
         return find_last(1,0,N,ql,qr,check);
     }
 };
-
-// SOLVED
-// https://atcoder.jp/contests/practice2/tasks/practice2_j
-void solve(int NT){
-    int n,q; cin >> n >> q;
-    vector<ll> a(n); for(ll &z: a) cin >> z;
-    
-    SegTree sg(a);
-    while(q--){
-        int t; cin >> t;
-        if(t == 1){
-            int x; ll v; cin >> x >> v;
-            sg.apply(x-1,x,v);
-        } else if(t == 2){
-            int l,r; cin >> l >> r;
-            cout << sg.mx(l-1,r) << "\n";
-        } else {
-            int x; ll v; cin >> x >> v;
-            cout << sg.find_smaller_or_equal(x-1,n,v,true)+1 << "\n";
-        }
-    }
-}
-
-// #define TESTCASES
-int main() {
-    cin.tie(0)->sync_with_stdio(0);
-
-    int t = 1;
-    #ifdef TESTCASES
-        cin >> t;
-    #endif
-    
-    for(int i = 1; i <= t; ++i){
-        solve(i);
-        cout << "\n";
-    }
-}

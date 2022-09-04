@@ -1,20 +1,9 @@
-// MDSPro
-
-#include <bits/stdc++.h>
-
-#define pb push_back
-#define se second
-#define fi first
-#define all(x) (x).begin(),(x).end()
-using namespace std;
-
 // usage: 
 // SparseTable<Type> sp(array,[](const Type&a, const Type&b){
 //    Type merged = mergeFunc(a,b); 
 //    return merged;   
 // });
 // extra example in solve(){}
-
 template<typename T>
 struct SparseTable {
     vector<vector<T>> sparse;
@@ -51,21 +40,5 @@ void solve(int NT){
     while(q--){
         int l,r; cin >> l >> r; l--;
         cout << sp.get(l,r) << " ";
-    }
-}
-
-
-// #define TESTCASES
-int main() {
-    cin.tie(0)->sync_with_stdio(0);
-
-    int t = 1;
-    #ifdef TESTCASES
-        cin >> t;
-    #endif
-    
-    for(int i = 1; i <= t; ++i){
-        solve(i);
-        cout << "\n";
     }
 }
