@@ -2,11 +2,11 @@
 
 #include <bits/stdc++.h>
 
-#define trav(i,n) for(int i = 0; i < (n); ++i)
 #define pb push_back
 #define se second
 #define fi first
 #define all(x) (x).begin(),(x).end()
+#define sz(x) ((int)((x).size()))
 
 using namespace std;
 using ll = long long;
@@ -25,13 +25,13 @@ void solve(int NT){
     
 }
 
-void setIn(string s) {freopen(s.c_str(), "r", stdin);}
-void setOut(string s) {freopen(s.c_str(), "w", stdout);}
-
 #define TESTCASES
 int main() {
     cin.tie(0)->sync_with_stdio(0);
-
+    #ifndef ONLINE_JUDGE
+        freopen("input.txt","r",stdin);
+        freopen("output.txt","w",stdout);
+    #endif
     int t = 1;
     #ifdef TESTCASES
         cin >> t;
