@@ -1,12 +1,14 @@
 // MDSPro
 
 #include <bits/stdc++.h>
+#ifdef LOCAL
+    #include "debug.h"
+#endif
 
 #define pb push_back
 #define se second
 #define fi first
 #define all(x) (x).begin(),(x).end()
-#define sz(x) ((int)((x).size()))
 
 using namespace std;
 using ll = long long;
@@ -28,10 +30,13 @@ void solve(int NT){
 #define TESTCASES
 int main() {
     cin.tie(0)->sync_with_stdio(0);
-    #ifndef ONLINE_JUDGE
+    
+    #ifdef LOCAL
         freopen("input.txt","r",stdin);
         freopen("output.txt","w",stdout);
+        freopen("error.txt","w",stderr);
     #endif
+    
     int t = 1;
     #ifdef TESTCASES
         cin >> t;
