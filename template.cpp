@@ -1,8 +1,10 @@
 // MDSPro
-
-#include <bits/stdc++.h>
 #ifdef LOCAL
+    #include "bits/stdc++.h"
     #include "debug.h"
+#else
+    #include <bits/stdc++.h>
+    #define debug(x...) 42
 #endif
 
 #define pb push_back
