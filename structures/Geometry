@@ -1,0 +1,58 @@
+namespace Geometry {
+    namespace two_dim {
+        template <class T>
+        struct point2d {
+            T x, y;
+
+            point2d() {}
+            point2d( T x, T y ):x(x),y(y) {}
+            
+            bool operator==( const point2d &o ) { return x == o.x && y == o.y; }
+            bool operator!=( const point2d &o ) { return !(*this == o); }
+
+            point2d& operator+=( const point2d &o ) { x += o.x; y += o.y; return *this; }
+            point2d& operator-=( const point2d &o ) { x -= o.x; y -= o.y; return *this; }
+            point2d& operator*=(T a) { x *= a; y *= a; return *this; }
+            // be aware with integer types of T
+            point2d& operator/=(T a) { x /= a; y /= a; return *this; }
+
+            point2d operator+(const point2d &o) { return point2d(*this) += o; }
+            point2d operator-(const point2d &o) { return point2d(*this) -= o; }
+            point2d operator*(T a) { return point2d(*this) *= a; }
+            // be aware with integer types of T
+            point2d operator/(T a) { return point2d(*this) /= a; }
+        };
+
+        template <class T>
+        point2d<T> operator*(T a, point2d<T> b) { return b * a; }
+
+        template <class T>
+        T dot(point2d<T> a, point2d<T> b) { return a.x * b.x + a.y * b.y; }
+
+        template <class T>
+        T cross(point2d<T> a, point2d<T> b) { return a.x * b.y - a.y * b.x; }
+
+        template <class T>
+        T norm(point2d<T> a) { return dot(a, a); }
+
+        template <class T>
+        double pabs(point2d<T> a) { return sqrt(norm(a)); }
+
+        template<class T>
+        double proj(point2d<T> a, point2d<T> b) { return dot(a, b) / pabs(b); }
+
+        template<class T>
+        double angle(point2d<T> a, point2d<T> b) { return acos(dot(a, b) / pabs(a) / pabs(b)); }
+
+        template<class T>
+        double triangle_area(point2d<T> a, point2d<T> b, point2d<T> c) { return abs(cross(c - a, b - a)) / 2; }
+        
+        template <class T>
+        ostream& operator<<(ostream& out, const point2d<T>& p) { out << p.x << ' ' << p.y; return out; }
+
+        template <class T>
+        istream& operator>>(istream& in, point2d<T>& p) { in >> p.x >> p.y; return in; }
+    };
+};
+using namespace Geometry::two_dim;
+using p2d = point2d<double>;
